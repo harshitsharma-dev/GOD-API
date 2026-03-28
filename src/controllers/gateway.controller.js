@@ -5,13 +5,19 @@ const mistral = require('../adapters/mistral.adapter');
 const together = require('../adapters/together.adapter');
 const huggingface = require('../adapters/huggingface.adapter');
 
+const openrouter = require('../adapters/openrouter.adapter');
+const replicate = require('../adapters/replicate.adapter');
+
 const adapters = {
     gemini,
     groq,
     mistral,
     together,
-    huggingface
+    huggingface,
+    openrouter,
+    replicate
 };
+
 
 /**
  * GOD API Gateway Controller

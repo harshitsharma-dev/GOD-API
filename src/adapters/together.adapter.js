@@ -7,6 +7,9 @@ class TogetherAdapter extends BaseAdapter {
     }
 
     async handleRequest(message) {
+        const keyError = this.validateKey();
+        if (keyError) return keyError;
+
         try {
             const response = await axios.post(
                 'https://api.together.xyz/v1/chat/completions',

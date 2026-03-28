@@ -1,39 +1,86 @@
-﻿
-≡ƒÜÇ GOD API GATEWAY - FINAL QA VERIFICATION
+﻿≡ƒÜÇ GOD API GATEWAY - FINAL QA VERIFICATION
 
-[GATEWAY] Routing request to: gemini (SmartRouting: false)
-[GATEWAY] Routing request to: groq (SmartRouting: false)
-[GATEWAY] Routing request to: mistral (SmartRouting: false)
-[GATEWAY] Routing request to: together (SmartRouting: false)
-[GATEWAY] Routing request to: huggingface (SmartRouting: false)
 [GATEWAY] Routing request to: mistral (SmartRouting: true)
+node : [GATEWAY] Logging 
+error: Operation 
+`usagelogs.insertOne()` 
+buffering timed out after 
+10000ms
+At line:1 char:1
++ node 
+final_qa_verification.js 
+> final_qa_results.txt 
+2>&1; Get-Conten ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~
+    + CategoryInfo        
+      : NotSpecified: ([  
+  GATEWAY] Loggi...t af   
+ ter 10000ms:String) [    
+], RemoteException
+    + FullyQualifiedError 
+   Id : NativeCommandErr  
+  or
+ 
 [GATEWAY] Routing request to: groq (SmartRouting: true)
+[GATEWAY] Logging error: 
+Operation 
+`usagelogs.insertOne()` 
+buffering timed out after 
+10000ms
 [GATEWAY] Routing request to: mistral (SmartRouting: true)
+[GATEWAY] Logging error: 
+Operation 
+`usagelogs.insertOne()` 
+buffering timed out after 
+10000ms
 [GATEWAY] Routing request to: gemini (SmartRouting: true)
+[GATEWAY] Logging error: 
+Operation 
+`usagelogs.insertOne()` 
+buffering timed out after 
+10000ms
 [GATEWAY] Routing request to: groq (SmartRouting: false)
 [GATEWAY] Routing request to: groq (SmartRouting: false)
+[GATEWAY] Logging error: 
+Operation 
+`usagelogs.insertOne()` 
+buffering timed out after 
+10000ms
+[GATEWAY] Logging error: 
+Operation 
+`usagelogs.insertOne()` 
+buffering timed out after 
+10000ms
 [GATEWAY] Primary (groq) failed. Falling back to Gemini (allowFallback=true)...
-ΓöîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÉ
-Γöé (index) Γöé name                                  Γöé category   Γöé expected                              Γöé actual                                Γöé status    Γöé
-Γö£ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöñ
-Γöé 0       Γöé 'Signup Flow'                         Γöé 'Auth'     Γöé '201 Created'                         Γöé '201 Created'                         Γöé 'Γ£à PASS' Γöé
-Γöé 1       Γöé 'Login Flow'                          Γöé 'Auth'     Γöé 'Token Received'                      Γöé 'Token Received'                      Γöé 'Γ£à PASS' Γöé
-Γöé 2       Γöé 'API Key Generation'                  Γöé 'Key'      Γöé 'Key Starts with god_'                Γöé 'Key Starts with god_'                Γöé 'Γ£à PASS' Γöé
-Γöé 3       Γöé 'Provider: gemini'                    Γöé 'Gateway'  Γöé 'Success from gemini'                 Γöé 'Success from gemini'                 Γöé 'Γ£à PASS' Γöé
-Γöé 4       Γöé 'Provider: groq'                      Γöé 'Gateway'  Γöé 'Success from groq'                   Γöé 'Success from groq'                   Γöé 'Γ£à PASS' Γöé
-Γöé 5       Γöé 'Provider: mistral'                   Γöé 'Gateway'  Γöé 'Success from mistral'                Γöé 'Success from mistral'                Γöé 'Γ£à PASS' Γöé
-Γöé 6       Γöé 'Provider: together'                  Γöé 'Gateway'  Γöé 'Success from together'               Γöé 'Success from together'               Γöé 'Γ£à PASS' Γöé
-Γöé 7       Γöé 'Provider: huggingface'               Γöé 'Gateway'  Γöé 'Success from huggingface'            Γöé 'Success from huggingface'            Γöé 'Γ£à PASS' Γöé
-Γöé 8       Γöé 'Routing: Coding Keywords -> mistral' Γöé 'Routing'  Γöé 'mistral'                             Γöé 'mistral'                             Γöé 'Γ£à PASS' Γöé
-Γöé 9       Γöé 'Routing: Message < 30 -> groq'       Γöé 'Routing'  Γöé 'groq'                                Γöé 'groq'                                Γöé 'Γ£à PASS' Γöé
-Γöé 10      Γöé 'Routing: Message > 200 -> mistral'   Γöé 'Routing'  Γöé 'mistral'                             Γöé 'mistral'                             Γöé 'Γ£à PASS' Γöé
-Γöé 11      Γöé 'Routing: General -> gemini'          Γöé 'Routing'  Γöé 'gemini'                              Γöé 'gemini'                              Γöé 'Γ£à PASS' Γöé
-Γöé 12      Γöé 'Strict Control: Failing Groq'        Γöé 'Control'  Γöé 'Error Response'                      Γöé 'Error Response'                      Γöé 'Γ£à PASS' Γöé
-Γöé 13      Γöé 'Fallback: allowFallback=true'        Γöé 'Fallback' Γöé 'Fallback to Gemini'                  Γöé 'Fallback to Gemini'                  Γöé 'Γ£à PASS' Γöé
-Γöé 14      Γöé 'Error: Missing Message'              Γöé 'Error'    Γöé '400 Message is required'             Γöé '400 Message is required'             Γöé 'Γ£à PASS' Γöé
-Γöé 15      Γöé 'Error: Invalid Provider'             Γöé 'Error'    Γöé '400 Invalid or unsupported provider' Γöé '400 Invalid or unsupported provider' Γöé 'Γ£à PASS' Γöé
-Γöé 16      Γöé 'Error: Missing User context'         Γöé 'Error'    Γöé '401 Unauthorized'                    Γöé '401 Unauthorized'                    Γöé 'Γ£à PASS' Γöé
-ΓööΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÿ
+[GATEWAY] Fallback 
+logging error: Operation 
+`usagelogs.insertOne()` 
+buffering timed out after 
+10000ms
+ΓöîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÉ
+Γöé (index) Γöé name                                      Γöé category   Γöé expected                              Γöé actual                                         Γöé status    Γöé
+Γö£ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöñ
+Γöé 0       Γöé 'Signup Flow'                             Γöé 'Auth'     Γöé '201 Created'                         Γöé '201 Created'                                  Γöé 'Γ£à PASS' Γöé
+Γöé 1       Γöé 'Login Flow'                              Γöé 'Auth'     Γöé 'Token Received'                      Γöé 'Token Received'                               Γöé 'Γ£à PASS' Γöé
+Γöé 2       Γöé 'API Key Generation'                      Γöé 'Key'      Γöé 'Key Starts with god_'                Γöé 'Key Starts with god_'                         Γöé 'Γ£à PASS' Γöé
+Γöé 3       Γöé 'Provider: gemini'                        Γöé 'Gateway'  Γöé 'Success from gemini'                 Γöé 'Success from gemini'                          Γöé 'Γ£à PASS' Γöé
+Γöé 4       Γöé 'Provider: groq'                          Γöé 'Gateway'  Γöé 'API key missing'                     Γöé 'API key missing'                              Γöé 'Γ£à PASS' Γöé
+Γöé 5       Γöé 'Provider: mistral'                       Γöé 'Gateway'  Γöé 'API key missing'                     Γöé 'API key missing'                              Γöé 'Γ£à PASS' Γöé
+Γöé 6       Γöé 'Provider: together'                      Γöé 'Gateway'  Γöé 'API key missing'                     Γöé 'API key missing'                              Γöé 'Γ£à PASS' Γöé
+Γöé 7       Γöé 'Provider: huggingface'                   Γöé 'Gateway'  Γöé 'API key missing'                     Γöé 'API key missing'                              Γöé 'Γ£à PASS' Γöé
+Γöé 8       Γöé 'Provider: openrouter'                    Γöé 'Gateway'  Γöé 'API key missing'                     Γöé 'API key missing'                              Γöé 'Γ£à PASS' Γöé
+Γöé 9       Γöé 'Provider: replicate'                     Γöé 'Gateway'  Γöé 'API key missing'                     Γöé 'API key missing'                              Γöé 'Γ£à PASS' Γöé
+Γöé 10      Γöé 'Routing: write a python code -> mistral' Γöé 'Routing'  Γöé 'mistral'                             Γöé 'mistral'                                      Γöé 'Γ£à PASS' Γöé
+Γöé 11      Γöé 'Routing: hi -> groq'                     Γöé 'Routing'  Γöé 'groq'                                Γöé 'groq'                                         Γöé 'Γ£à PASS' Γöé
+Γöé 12      Γöé 'Routing: A very long mes... -> mistral'  Γöé 'Routing'  Γöé 'mistral'                             Γöé 'mistral'                                      Γöé 'Γ£à PASS' Γöé
+Γöé 13      Γöé 'Routing: General knowled... -> gemini'   Γöé 'Routing'  Γöé 'gemini'                              Γöé 'gemini'                                       Γöé 'Γ£à PASS' Γöé
+Γöé 14      Γöé 'Strict Control: Failing Groq'            Γöé 'Control'  Γöé 'Error Response'                      Γöé 'Error Response'                               Γöé 'Γ£à PASS' Γöé
+Γöé 15      Γöé 'Fallback: allowFallback=true'            Γöé 'Fallback' Γöé 'Fallback to Gemini'                  Γöé 'Fallback to Gemini'                           Γöé 'Γ£à PASS' Γöé
+Γöé 16      Γöé 'Error: Missing Message'                  Γöé 'Error'    Γöé '400 Message is required'             Γöé '400 Message is required'                      Γöé 'Γ£à PASS' Γöé
+Γöé 17      Γöé 'Error: Invalid Provider'                 Γöé 'Error'    Γöé '400 Invalid or unsupported provider' Γöé '400 Invalid or unsupported provider: invalid' Γöé 'Γ£à PASS' Γöé
+Γöé 18      Γöé 'Error: Missing User context'             Γöé 'Error'    Γöé '401 Unauthorized'                    Γöé '401 Unauthorized: User context required'      Γöé 'Γ£à PASS' Γöé
+ΓööΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÿ
 
 FINAL VERDICT: WORKING Γ£à
-

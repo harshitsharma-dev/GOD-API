@@ -7,6 +7,9 @@ class MistralAdapter extends BaseAdapter {
     }
 
     async handleRequest(message) {
+        const keyError = this.validateKey();
+        if (keyError) return keyError;
+
         try {
             const response = await axios.post(
                 'https://api.mistral.ai/v1/chat/completions',

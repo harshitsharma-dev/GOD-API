@@ -7,6 +7,9 @@ class GeminiAdapter extends BaseAdapter {
     }
 
     async handleRequest(message) {
+        const keyError = this.validateKey();
+        if (keyError) return keyError;
+
         try {
             const response = await axios.post(
                 `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${this.apiKey}`,

@@ -8,6 +8,19 @@ class BaseAdapter {
         throw new Error('Method "handleUserRequest" must be implemented');
     }
 
+    validateKey() {
+        if (!this.apiKey) {
+            return {
+                success: false,
+                provider: this.providerName,
+                error: "API key missing"
+            };
+        }
+        return null;
+    }
+
+
+
     normalizeResponse(data) {
         return {
             success: true,

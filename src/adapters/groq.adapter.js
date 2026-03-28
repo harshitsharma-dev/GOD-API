@@ -7,6 +7,9 @@ class GroqAdapter extends BaseAdapter {
     }
 
     async handleRequest(message) {
+        const keyError = this.validateKey();
+        if (keyError) return keyError;
+
         try {
             const response = await axios.post(
                 'https://api.groq.com/openai/v1/chat/completions',
