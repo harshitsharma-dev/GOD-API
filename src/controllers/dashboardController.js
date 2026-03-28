@@ -10,27 +10,13 @@ const { generateApiKey, hashApiKey } = require('../utils/cryptoUtils');
 const { errorResponse } = require('../utils/response');
 const ProviderFactory = require('../providers/ProviderFactory');
 
-/**
- * GET /dashboard
- * Returns full dashboard info: user, tenant, API key info, usage summary, providers.
- */
 const getDashboard = async (req, res) => {
     try {
         const { user, userTenant: tenant } = req;
 
-        // ── Usage Stats (last 30 days) ────────────────────────────────────
-        const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-        const [totalRequests, successRequests] = await Promise.all([
-            UsageLog.countDocuments({
-                tenantId: tenant._id,
-                createdAt: { $gte: thirtyDaysAgo },
-            }).catch(() => 0),
-            UsageLog.countDocuments({
-                tenantId: tenant._id,
-                createdAt: { $gte: thirtyDaysAgo },
-                responseStatus: { $gte: 200, $lt: 300 },
-            }).catch(() => 0),
-        ]);
+        // ── Usage Stats (last 7 days — matches dashboard requirements) ────
+        const AnalyticsService = require('../services/analyticsService');
+        const usageData = await AnalyticsService.getTenantUsage(tenant._id, 7);
 
         // ── Providers list ────────────────────────────────────────────────
         const providers = ProviderFactory.listProviders().map(p => ({
@@ -49,6 +35,7 @@ const getDashboard = async (req, res) => {
                 },
                 tenant: {
                     id: tenant._id,
+                    name: tenant.name,
                     plan: tenant.plan,
                     status: tenant.status,
                     keyVersion: tenant.keyVersion,
@@ -62,23 +49,14 @@ const getDashboard = async (req, res) => {
                     issuedAt: tenant.currentKey?.issuedAt,
                     lastUsedAt: tenant.currentKey?.lastUsedAt,
                     expiresAt: tenant.currentKey?.expiresAt || null,
-                    // Full key is NEVER returned here — use prefix for display
                 },
-                usage: {
-                    period: 'last_30_days',
-                    totalRequests,
-                    successRequests,
-                    errorRequests: totalRequests - successRequests,
-                    successRate: totalRequests > 0
-                        ? Math.round((successRequests / totalRequests) * 100)
-                        : 100,
-                },
+                usage: usageData,
                 providers,
             },
         });
 
     } catch (error) {
-        console.error('[Dashboard] Error:', error.message);
+        console.error('[Dashboard] Error:', error.stack);
         return errorResponse(res, 'Failed to load dashboard', 500, 'DASHBOARD_ERROR');
     }
 };

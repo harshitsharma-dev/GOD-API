@@ -1,36 +1,23 @@
-/**
- * GOD API — Server Entry Point
- * One Key. Every API. Zero Friction.
- */
 require('dotenv').config();
-
+const mongoose = require('mongoose');
 const app = require('./src/app');
-const connectDB = require('./src/config/db');
 
 const PORT = process.env.PORT || 3000;
-const HOST = process.env.HOST || '0.0.0.0';
+const MONGO_URI = process.env.MONGO_URI || process.env.MONGODB_URI;
 
-const startServer = async () => {
-    try {
-        // 1. Connect to MongoDB
-        await connectDB();
+if (!MONGO_URI) {
+    console.error('MONGO_URI is missing in environment variables');
+    process.exit(1);
+}
 
-        // 2. Start HTTP server
-        app.listen(PORT, HOST, () => {
-            console.log('');
-            console.log('╔═══════════════════════════════════════════════╗');
-            console.log('║          🌐  GOD API  — v1.0.0               ║');
-            console.log('║   One Key. Every API. Zero Friction.          ║');
-            console.log('╚═══════════════════════════════════════════════╝');
-            console.log(`\n🚀  Server : http://${HOST}:${PORT}`);
-            console.log(`🌍  Mode   : ${process.env.NODE_ENV || 'development'}`);
-            console.log(`📋  Docs   : http://localhost:${PORT}/v1/_/providers`);
-            console.log(`❤️   Health : http://localhost:${PORT}/health\n`);
+mongoose.connect(MONGO_URI)
+    .then(() => {
+        console.log('Connected to MongoDB');
+        app.listen(PORT, () => {
+            console.log(`GOD API Gateway running on port ${PORT}`);
         });
-    } catch (error) {
-        console.error('❌ Failed to start server:', error.message);
+    })
+    .catch((err) => {
+        console.error('MongoDB connection error:', err);
         process.exit(1);
-    }
-};
-
-startServer();
+    });

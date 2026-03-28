@@ -1,25 +1,27 @@
 /**
- * GOD API — JWT Authentication Middleware
- *
- * Protects user-facing routes (dashboard, key management).
- * Completely separate from the existing API key auth middleware.
- * Does NOT interfere with /v1/* routes.
+ * GOD API — JWT Authentication Middleware — Lazy Loading Fix
  */
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
-const Tenant = require('../models/Tenant');
 const { errorResponse } = require('../utils/response');
+
+// Lazy-loaded dependencies
+let jwt = null;
+let User = null;
+let Tenant = null;
 
 const authenticateJwt = async (req, res, next) => {
     try {
-        // ── 1. Parse Authorization header ─────────────────────────────────
         const authHeader = req.headers['authorization'];
 
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return errorResponse(res, 'Authorization header required. Use: Bearer <jwt_token>', 401, 'MISSING_JWT');
+            return errorResponse(res, 'Authorization header required.', 401, 'MISSING_JWT');
         }
 
         const token = authHeader.slice(7).trim();
+
+        // ── 1. Lazy load dependencies ─────────────────────────────────────
+        if (!jwt) jwt = require('jsonwebtoken');
+        if (!User) User = require('../models/User');
+        if (!Tenant) Tenant = require('../models/Tenant');
 
         // ── 2. Verify JWT signature + expiry ──────────────────────────────
         let decoded;
