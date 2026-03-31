@@ -19,8 +19,14 @@ const usageLogSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.Mixed,
             required: true,
         },
+        tokensUsed: {
+            prompt: { type: Number, default: 0 },
+            completion: { type: Number, default: 0 },
+            total: { type: Number, default: 0 },
+        },
     },
     { timestamps: true }
 );
 
 module.exports = mongoose.model('UsageLog', usageLogSchema);
+

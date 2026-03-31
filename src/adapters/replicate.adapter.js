@@ -40,7 +40,13 @@ class ReplicateAdapter extends BaseAdapter {
             }
 
             if (status === 'succeeded') {
-                return this.normalizeResponse(Array.isArray(result.output) ? result.output.join('') : result.output);
+                const content = Array.isArray(result.output) ? result.output.join('') : result.output;
+                const tokens = {
+                    prompt: this.estimateTokens(message),
+                    completion: this.estimateTokens(content),
+                    total: this.estimateTokens(message) + this.estimateTokens(content)
+                };
+                return this.normalizeResponse(content, tokens);
             } else {
                 throw new Error(`Replicate prediction ${status}`);
             }

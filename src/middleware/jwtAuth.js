@@ -1,5 +1,5 @@
 /**
- * GOD API — JWT Authentication Middleware — Lazy Loading Fix
+ * GOD API — JWT Authentication Middleware
  */
 const { errorResponse } = require('../utils/response');
 
@@ -56,4 +56,17 @@ const authenticateJwt = async (req, res, next) => {
     }
 };
 
-module.exports = { authenticateJwt };
+/**
+ * Authorization middleware for role-based access.
+ * Must be used AFTER authenticateJwt.
+ */
+const authorizeRole = (role) => {
+    return (req, res, next) => {
+        if (!req.user || req.user.role !== role) {
+            return errorResponse(res, `Access denied: ${role} role required`, 403, 'FORBIDDEN');
+        }
+        next();
+    };
+};
+
+module.exports = { authenticateJwt, authorizeRole };

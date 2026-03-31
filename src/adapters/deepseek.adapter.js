@@ -7,6 +7,9 @@ class DeepSeekAdapter extends BaseAdapter {
     }
 
     async handleRequest(message) {
+        const keyError = this.validateKey();
+        if (keyError) return keyError;
+
         try {
             const response = await axios.post(
                 'https://api.deepseek.com/chat/completions',
@@ -21,7 +24,20 @@ class DeepSeekAdapter extends BaseAdapter {
                     },
                 }
             );
-            return this.normalizeResponse(response.data.choices[0].message.content);
+
+            const content = response.data.choices[0].message.content;
+            const usage = response.data.usage;
+            const tokens = usage ? {
+                prompt: usage.prompt_tokens,
+                completion: usage.completion_tokens,
+                total: usage.total_tokens
+            } : {
+                prompt: this.estimateTokens(message),
+                completion: this.estimateTokens(content),
+                total: this.estimateTokens(message) + this.estimateTokens(content)
+            };
+
+            return this.normalizeResponse(content, tokens);
         } catch (error) {
             return this.handleError(error);
         }

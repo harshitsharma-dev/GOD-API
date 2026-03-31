@@ -1,16 +1,14 @@
-/**
- * GOD API — Dashboard & Key Management Routes
- *
- * All routes are protected by JWT middleware.
- */
 const router = require('express').Router();
-const { getDashboard, rotateKey } = require('../controllers/dashboardController');
+const dashboardController = require('../controllers/dashboardController');
 const { authenticateJwt } = require('../middleware/jwtAuth');
 
-router.get('/', authenticateJwt, getDashboard);
-router.post('/rotate', authenticateJwt, rotateKey);
-// Also handle root POST for /keys mount (POST /keys/rotate)
-router.post('/', authenticateJwt, rotateKey);
+// All dashboard and key management routes require valid JWT session
+router.use(authenticateJwt);
 
+router.get('/', dashboardController.getDashboard);
+router.post('/rotate', dashboardController.rotateKey);
+
+// Backward compatibility (legacy /keys root POST)
+router.post('/', dashboardController.rotateKey);
 
 module.exports = router;

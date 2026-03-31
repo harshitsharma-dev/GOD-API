@@ -20,7 +20,20 @@ class GeminiAdapter extends BaseAdapter {
                     headers: { 'Content-Type': 'application/json' },
                 }
             );
-            return this.normalizeResponse(response.data.candidates[0].content.parts[0].text);
+
+            const content = response.data.candidates[0].content.parts[0].text;
+            const meta = response.data.usageMetadata;
+            const tokens = meta ? {
+                prompt: meta.promptTokenCount ?? this.estimateTokens(message),
+                completion: meta.candidatesTokenCount ?? this.estimateTokens(content),
+                total: meta.totalTokenCount ?? (meta.promptTokenCount + meta.candidatesTokenCount)
+            } : {
+                prompt: this.estimateTokens(message),
+                completion: this.estimateTokens(content),
+                total: this.estimateTokens(message) + this.estimateTokens(content)
+            };
+
+            return this.normalizeResponse(content, tokens);
         } catch (error) {
             return this.handleError(error);
         }

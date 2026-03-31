@@ -1,20 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const authController = require('../controllers/auth.controller');
-const keyController = require('../controllers/key.controller');
-const gatewayController = require('../controllers/gateway.controller');
-const auth = require('../middleware/auth');
-const apiKeyAuth = require('../middleware/apiKeyAuth');
 
-// Auth Routes
-router.post('/auth/signup', authController.signup);
-router.post('/auth/login', authController.login);
+const authRoutes = require('./authRoutes');
+const adminRoutes = require('./adminRoutes');
+const discoveryRoutes = require('./discoveryRoutes');
+const dashboardRoutes = require('./dashboardRoutes');
+const gatewayRoutes = require('./gatewayRoutes');
 
-// API Key Routes (Protected by JWT)
-router.post('/keys/generate', auth, keyController.generateKey);
-router.get('/keys/status', auth, keyController.viewKeyStatus);
+// ── Feature Specific Routes ──────────────────────────────────────────────────
+router.use('/auth', authRoutes);
+router.use('/admin', adminRoutes);
+router.use('/dashboard', dashboardRoutes);
+router.use('/discovery', discoveryRoutes);
 
-// Gateway Route (Protected by GOD API Key)
-router.post('/gateway', apiKeyAuth, gatewayController.handleRequest);
+// ── AI Gateway (Modern & Versioned) ──────────────────────────────────────────
+router.use('/v1', gatewayRoutes);
+router.use('/v1/_', discoveryRoutes); // Discovery also mounted under v1 namespace
 
 module.exports = router;

@@ -28,8 +28,13 @@ class HuggingFaceAdapter extends BaseAdapter {
                 }
             );
             
-            const result = Array.isArray(response.data) ? response.data[0].generated_text : response.data.generated_text;
-            return this.normalizeResponse(result);
+            const content = Array.isArray(response.data) ? response.data[0].generated_text : response.data.generated_text;
+            const tokens = {
+                prompt: this.estimateTokens(message),
+                completion: this.estimateTokens(content),
+                total: this.estimateTokens(message) + this.estimateTokens(content)
+            };
+            return this.normalizeResponse(content, tokens);
         } catch (error) {
             return this.handleError(error);
         }

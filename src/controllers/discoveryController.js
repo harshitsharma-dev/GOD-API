@@ -85,7 +85,7 @@ exports.getMyUsage = async (req, res, next) => {
                 id: req.tenant._id,
                 name: req.tenant.name,
                 plan: req.tenant.plan,
-                keyPrefix: req.tenant.keyPrefix,
+                keyPrefix: req.tenant.currentKey?.prefix || null,
             },
             usage,
         }, 'Usage data retrieved');
@@ -99,12 +99,12 @@ exports.getMyUsage = async (req, res, next) => {
  * Platform health endpoint (authenticated — requires valid GOD API key).
  */
 exports.health = (req, res) => {
-    return res.json({
+    return successResponse(res, {
         status: 'healthy',
         version: '1.0.0',
         uptime: process.uptime(),
         timestamp: new Date().toISOString(),
         providers: ProviderFactory.listProviders().map(p => p.name),
         tenant: req.tenant ? req.tenant.name : null,
-    });
+    }, 'System healthy');
 };

@@ -7,6 +7,9 @@ class ClaudeAdapter extends BaseAdapter {
     }
 
     async handleRequest(message) {
+        const keyError = this.validateKey();
+        if (keyError) return keyError;
+
         try {
             const response = await axios.post(
                 'https://api.anthropic.com/v1/messages',
@@ -23,7 +26,20 @@ class ClaudeAdapter extends BaseAdapter {
                     },
                 }
             );
-            return this.normalizeResponse(response.data.content[0].text);
+
+            const content = response.data.content[0].text;
+            const usage = response.data.usage;
+            const tokens = usage ? {
+                prompt: usage.input_tokens,
+                completion: usage.output_tokens,
+                total: (usage.input_tokens || 0) + (usage.output_tokens || 0)
+            } : {
+                prompt: this.estimateTokens(message),
+                completion: this.estimateTokens(content),
+                total: this.estimateTokens(message) + this.estimateTokens(content)
+            };
+
+            return this.normalizeResponse(content, tokens);
         } catch (error) {
             return this.handleError(error);
         }

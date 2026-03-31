@@ -13,19 +13,35 @@ class BaseAdapter {
             return {
                 success: false,
                 provider: this.providerName,
-                error: "API key missing"
+                error: "API key missing",
+                tokens: null
             };
         }
         return null;
     }
 
+    /**
+     * Estimate token count from text using ~4 chars per token heuristic.
+     * Used as fallback when provider doesn't return exact token counts.
+     * @param {string} text
+     * @returns {number}
+     */
+    estimateTokens(text) {
+        if (!text) return 0;
+        return Math.ceil(String(text).length / 4);
+    }
 
-
-    normalizeResponse(data) {
+    /**
+     * Normalize response with optional token tracking.
+     * @param {*} data - The response content
+     * @param {object|null} tokens - { prompt, completion, total } or null
+     */
+    normalizeResponse(data, tokens = null) {
         return {
             success: true,
             provider: this.providerName,
-            data: data
+            data: { message: data },
+            tokens: tokens || null
         };
     }
 
@@ -37,7 +53,8 @@ class BaseAdapter {
         return {
             success: false,
             provider: this.providerName,
-            error: errorMsg
+            error: errorMsg,
+            tokens: null
         };
     }
 }

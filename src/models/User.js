@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const { hashPassword, comparePassword } = require('../utils/cryptoFallback');
 
 const userSchema = new mongoose.Schema(
     {
@@ -15,34 +15,39 @@ const userSchema = new mongoose.Schema(
             lowercase: true,
             trim: true,
         },
-        password: {
+        passwordHash: {
             type: String,
             required: [true, 'Password is required'],
             select: false,
         },
-        apiKey: {
-            type: String,
-            unique: true,
-            sparse: true,
-            select: false,
+        tenantId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Tenant',
+            required: true,
         },
-        apiKeyPrefix: {
+        role: {
             type: String,
+            enum: ['admin', 'user'],
+            default: 'user',
         },
     },
     { timestamps: true }
 );
 
-// Hash password before saving
+// Hash password before saving if it was modified
 userSchema.pre('save', async function (next) {
-    if (!this.isModified('password')) return next();
-    this.password = await bcrypt.hash(this.password, 12);
+    if (!this.isModified('passwordHash')) return next();
+    // We don't hash here if it's already a hash (controllers handle hashing)
+    // But for safety, if it's not in salt:hash format, we hash it.
+    if (!this.passwordHash.includes(':')) {
+        this.passwordHash = await hashPassword(this.passwordHash);
+    }
     next();
 });
 
 // Compare password method
 userSchema.methods.comparePassword = async function (candidatePassword) {
-    return await bcrypt.compare(candidatePassword, this.password);
+    return await comparePassword(candidatePassword, this.passwordHash);
 };
 
 module.exports = mongoose.model('User', userSchema);

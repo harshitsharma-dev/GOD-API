@@ -5,9 +5,8 @@
  * Key rotation reuses the existing Tenant model's key rotation logic.
  */
 const Tenant = require('../models/Tenant');
-const UsageLog = require('../models/UsageLog');
 const { generateApiKey, hashApiKey } = require('../utils/cryptoUtils');
-const { errorResponse } = require('../utils/response');
+const { successResponse, errorResponse } = require('../utils/response');
 const ProviderFactory = require('../providers/ProviderFactory');
 
 const getDashboard = async (req, res) => {
@@ -24,36 +23,33 @@ const getDashboard = async (req, res) => {
             description: p.description || null,
         }));
 
-        return res.json({
-            success: true,
-            data: {
-                user: {
-                    id: user._id,
-                    name: user.name,
-                    email: user.email,
-                    memberSince: user.createdAt,
-                },
-                tenant: {
-                    id: tenant._id,
-                    name: tenant.name,
-                    plan: tenant.plan,
-                    status: tenant.status,
-                    keyVersion: tenant.keyVersion,
-                    rateLimitPerMin: tenant.rateLimitPerMin || 60,
-                    allowedProviders: tenant.allowedProviders.length
-                        ? tenant.allowedProviders
-                        : providers.map(p => p.name),
-                },
-                apiKey: {
-                    prefix: tenant.currentKey?.prefix,
-                    issuedAt: tenant.currentKey?.issuedAt,
-                    lastUsedAt: tenant.currentKey?.lastUsedAt,
-                    expiresAt: tenant.currentKey?.expiresAt || null,
-                },
-                usage: usageData,
-                providers,
+        return successResponse(res, {
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                memberSince: user.createdAt,
             },
-        });
+            tenant: {
+                id: tenant._id,
+                name: tenant.name,
+                plan: tenant.plan,
+                status: tenant.status,
+                keyVersion: tenant.keyVersion,
+                rateLimitPerMin: tenant.rateLimitPerMin || 60,
+                allowedProviders: tenant.allowedProviders.length
+                    ? tenant.allowedProviders
+                    : providers.map(p => p.name),
+            },
+            apiKey: {
+                prefix: tenant.currentKey?.prefix,
+                issuedAt: tenant.currentKey?.issuedAt,
+                lastUsedAt: tenant.currentKey?.lastUsedAt,
+                expiresAt: tenant.currentKey?.expiresAt || null,
+            },
+            usage: usageData,
+            providers,
+        }, 'Dashboard data loaded');
 
     } catch (error) {
         console.error('[Dashboard] Error:', error.stack);
@@ -95,16 +91,12 @@ const rotateKey = async (req, res) => {
             $inc: { keyVersion: 1 },
         });
 
-        return res.json({
-            success: true,
-            message: 'API key rotated successfully',
-            data: {
-                newApiKey: fullKey,
-                newPrefix: prefix,
-                previousKeyExpiresAt: gracePeriodEnd.toISOString(),
-                warning: 'Save your new GOD API key now — it will not be shown again! Your old key works for 24 hours.',
-            },
-        });
+        return successResponse(res, {
+            newApiKey: fullKey,
+            newPrefix: prefix,
+            previousKeyExpiresAt: gracePeriodEnd.toISOString(),
+            warning: 'Save your new GOD API key now — it will not be shown again! Your old key works for 24 hours.',
+        }, 'API key rotated successfully');
 
     } catch (error) {
         console.error('[Dashboard] Rotate key error:', error.message);
