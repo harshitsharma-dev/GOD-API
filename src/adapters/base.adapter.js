@@ -8,13 +8,20 @@ class BaseAdapter {
         throw new Error('Method "handleUserRequest" must be implemented');
     }
 
+    /**
+     * Standardized empty tokens object.
+     */
+    get emptyTokens() {
+        return { prompt: 0, completion: 0, total: 0 };
+    }
+
     validateKey() {
         if (!this.apiKey) {
             return {
                 success: false,
                 provider: this.providerName,
                 error: "API key missing",
-                tokens: null
+                tokens: this.emptyTokens
             };
         }
         return null;
@@ -41,7 +48,7 @@ class BaseAdapter {
             success: true,
             provider: this.providerName,
             data: { message: data },
-            tokens: tokens || null
+            tokens: tokens || this.emptyTokens
         };
     }
 
@@ -54,7 +61,7 @@ class BaseAdapter {
             success: false,
             provider: this.providerName,
             error: errorMsg,
-            tokens: null
+            tokens: this.emptyTokens
         };
     }
 }

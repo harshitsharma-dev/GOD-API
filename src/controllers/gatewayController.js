@@ -37,7 +37,7 @@ const isProviderConfigured = (providerName) => {
  * Handles AI provider routing, smart routing, and controlled fallbacks.
  */
 exports.handleRequest = async (req, res) => {
-    const { provider, allowFallback = false } = req.body;
+    const { provider } = req.body;
     let { message } = req.body;
 
     if (!req.user) {
@@ -89,59 +89,29 @@ exports.handleRequest = async (req, res) => {
         // 1. Call the Primary Provider
         let result = await adapter.handleRequest(message);
 
-        let responseTimeMs = Date.now() - startTime;
+        const responseTimeMs = Date.now() - startTime;
 
         // 2. Log Attempt (with token data — never null)
         await UsageLog.create({
             userId: req.user?._id,
             provider: effectiveProvider,
-            request: { message, isSmartRouting, allowFallback },
+            request: { message, isSmartRouting },
             response: result,
             tokensUsed: result.tokens || EMPTY_TOKENS
         }).catch(err => console.error('[GATEWAY] Logging error:', err.message));
 
-        // 3. Optional Fallback (CONTROLLED)
-        // If primary failed and allowFallback = true -> try Gemini
-        let usedFallback = false;
-        let originalProvider = null;
-
-        if (!result.success && allowFallback && effectiveProvider !== 'gemini') {
-            console.log(`[GATEWAY] Primary (${effectiveProvider}) failed. Falling back to Gemini...`);
-
-            const fallbackStart = Date.now();
-            const fallbackResult = await gemini.handleRequest(message);
-            responseTimeMs = Date.now() - fallbackStart;
-
-            // Log Fallback Attempt
-            await UsageLog.create({
-                userId: req.user?._id,
-                provider: 'gemini',
-                request: { message, isFallback: true, originalProvider: effectiveProvider, isSmartRouting },
-                response: fallbackResult,
-                tokensUsed: fallbackResult.tokens || EMPTY_TOKENS
-            }).catch(err => console.error('[GATEWAY] Fallback logging error:', err.message));
-
-            if (fallbackResult.success) {
-                usedFallback = true;
-                originalProvider = effectiveProvider;
-                result = fallbackResult;
-            }
-        }
-
-        // 4. Build clean response
-        const tokens = result.tokens || null;
-
+        // 3. Build clean response (FAIL-FAST)
+        // [DEPRECATED] Automated fallback removed as per fail-fast policy.
+        
         const response = {
             success: result.success,
             data: result.data || null,
             error: result.error || undefined,
             _god: {
-                provider: usedFallback ? 'gemini' : (result.provider || effectiveProvider),
+                provider: result.provider || effectiveProvider,
                 responseTimeMs,
-                tokens: tokens,
+                tokens: result.tokens || EMPTY_TOKENS,
                 smartRouting: isSmartRouting || undefined,
-                fallback: usedFallback || undefined,
-                originalProvider: originalProvider || undefined,
             }
         };
 
@@ -152,7 +122,7 @@ exports.handleRequest = async (req, res) => {
         return res.status(500).json({
             success: false,
             error: 'Internal Gateway Error',
-            _god: { provider: effectiveProvider, responseTimeMs: 0, tokens: null }
+            _god: { provider: effectiveProvider, responseTimeMs: 0, tokens: EMPTY_TOKENS }
         });
     }
 };
