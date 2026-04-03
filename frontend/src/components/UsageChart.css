@@ -1,0 +1,39 @@
+.usage-chart {
+  padding: 24px;
+}
+
+.chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.chart-header h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.chart-body {
+  width: 100%;
+}
+
+.chart-tooltip {
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  backdrop-filter: blur(10px);
+}
+
+.chart-tooltip-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.chart-tooltip-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
